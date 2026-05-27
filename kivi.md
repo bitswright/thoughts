@@ -142,19 +142,19 @@ The WAL write path is made lock-free using an MPMC (multi-producer, multi-consum
 
 ### Phase 1 — in-memory store
 
-- [ ] Initialise Go module (`go mod init github.com/bitswright/kivi`)
-- [ ] Set up directory layout: `cmd/kivi/`, `internal/store/`, `internal/wal/`, `internal/segment/`, `internal/lsm/`, `internal/engine/`, `internal/server/`
-- [ ] Write `Makefile` with targets: `build`, `test`, `bench`, `lint`, `race`
+- [X] Initialise Go module (`go mod init github.com/bitswright/kivi`)
+- [X] Set up directory layout: `cmd/kivi/`, `internal/store/`, `internal/wal/`, `internal/segment/`, `internal/lsm/`, `internal/engine/`, `internal/server/`
+- [X] Write `Makefile` with targets: `build`, `test`, `bench`, `lint`, `race`
 - [ ] Implement `MemStore`
-  - [ ] Internal `map[string]entry` where `entry` holds value and optional expiry
-  - [ ] `sync.RWMutex` protecting all map access
-  - [ ] `Get(key string) ([]byte, bool)`
-  - [ ] `Set(key string, value []byte)`
-  - [ ] `Delete(key string)`
+  - [X] Internal `map[string]entry` where `entry` holds value and optional expiry
+  - [X] `sync.RWMutex` protecting all map access
+  - [X] `Get(key string) ([]byte, bool)`
+  - [X] `Set(key string, value []byte)`
+  - [X] `Delete(key string)`
   - [ ] `Scan(prefix string) iter.Seq2[string, []byte]` (sorted)
 - [ ] Implement TTL
-  - [ ] `SetWithTTL(key string, value []byte, ttl time.Duration)`
-  - [ ] Lazy expiry check inside `Get`
+  - [X] `SetWithTTL(key string, value []byte, ttl time.Duration)`
+  - [X] Lazy expiry check inside `Get`
   - [ ] Background reaper goroutine with configurable tick interval
   - [ ] `Stop()` method that shuts down the reaper cleanly
 - [ ] Write unit tests covering: concurrent reads, concurrent writes, TTL expiry, prefix scan ordering

@@ -152,32 +152,32 @@ The WAL write path is made lock-free using an MPMC (multi-producer, multi-consum
   - [X] `Set(key string, value []byte)`
   - [X] `Delete(key string)`
   - [ ] `Scan(prefix string) iter.Seq2[string, []byte]` (sorted)
-- [ ] Implement TTL
+- [X] Implement TTL
   - [X] `SetWithTTL(key string, value []byte, ttl time.Duration)`
   - [X] Lazy expiry check inside `Get`
-  - [ ] Background reaper goroutine with configurable tick interval
-  - [ ] `Stop()` method that shuts down the reaper cleanly
-- [ ] Write unit tests covering: concurrent reads, concurrent writes, TTL expiry, prefix scan ordering
-- [ ] Write benchmarks: `BenchmarkGet`, `BenchmarkSet`, `BenchmarkConcurrentReads`
+  - [X] Background reaper goroutine with configurable tick interval
+  - [X] `Stop()` method that shuts down the reaper cleanly
+- [X] Write unit tests covering: concurrent reads, concurrent writes, TTL expiry, prefix scan ordering
+- X ] Write benchmarks: `BenchmarkGet`, `BenchmarkSet`, `BenchmarkConcurrentReads`
 
 ### Phase 2 — append-only log
 
-- [ ] Define binary record format
-  - [ ] Header: record type (1 byte), key length (4 bytes), value length (4 bytes), CRC32 (4 bytes)
-  - [ ] Body: key bytes, value bytes
+- [X] Define binary record format
+  - [X] Header: record type (1 byte), key length (4 bytes), value length (4 bytes), CRC32 (4 bytes)
+  - [X] Body: key bytes, value bytes
   - [ ] Record types: `RecordPut`, `RecordDelete`, `RecordCheckpoint`
-- [ ] Implement encoder: `EncodeRecord(w io.Writer, rec Record) error`
-- [ ] Implement decoder: `DecodeRecord(r io.Reader) (Record, error)` with CRC32 validation
-- [ ] Fuzz test: feed random bytes to decoder, assert no panic and always returns typed error
-- [ ] Implement `LogStore`
-  - [ ] Open or create log file with `O_APPEND | O_CREATE | O_WRONLY`
-  - [ ] `Append(rec Record) error`
-  - [ ] `Replay(fn func(Record) error) error` — reads file front-to-back
-  - [ ] `Sync() error` — calls fsync on the file descriptor
-- [ ] Implement `SyncMode` config: `SyncNone`, `SyncData` (fdatasync), `SyncFull` (fsync)
+- [X] Implement encoder: `EncodeRecord(w io.Writer, rec Record) error`
+- [X] Implement decoder: `DecodeRecord(r io.Reader) (Record, error)` with CRC32 validation
+- [X] Fuzz test: feed random bytes to decoder, assert no panic and always returns typed error
+- [X] Implement `LogStore`
+  - [X] Open or create log file with `O_APPEND | O_CREATE | O_WRONLY`
+  - [X] `Append(rec Record) error`
+  - [X] `Replay(fn func(Record) error) error` — reads file front-to-back
+  - [X] `Sync() error` — calls fsync on the file descriptor
+- [X] Implement `SyncMode` config: `SyncNone`, `SyncData` (fdatasync), `SyncFull` (fsync)
 - [ ] Reconstruct `MemStore` from log on `Open`
-- [ ] Benchmark: write throughput under each sync mode
-- [ ] Unit tests: append + replay round-trip, corrupted record skipping, partial write at EOF
+- [X] Benchmark: write throughput under each sync mode
+- [X] Unit tests: append + replay round-trip, corrupted record skipping, partial write at EOF
 
 ### Phase 3 — WAL and crash safety
 
